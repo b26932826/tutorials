@@ -12,6 +12,7 @@
 
     <modules>
         <module>quarkus</module>
+        <module>kbar-trend-prediction</module>
     </modules>
 
 	<dependencies>
