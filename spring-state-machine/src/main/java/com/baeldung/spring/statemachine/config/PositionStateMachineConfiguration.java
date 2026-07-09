@@ -45,6 +45,8 @@ public class PositionStateMachineConfiguration extends StateMachineConfigurerAda
                 .and().withExternal()
                 .source(PositionStates.PENDING_CLOSE).target(PositionStates.CLOSED).event(PositionEvents.FILL_CLOSE)
                 .and().withExternal()
-                .source(PositionStates.PENDING_CLOSE).target(PositionStates.OPEN).event(PositionEvents.CANCEL);
+                .source(PositionStates.PENDING_CLOSE).target(PositionStates.OPEN).event(PositionEvents.CANCEL)
+                .and().withExternal()
+                .source(PositionStates.OPEN).target(PositionStates.CLOSED).event(PositionEvents.DAY_TRADE_OFFSET);
     }
 }

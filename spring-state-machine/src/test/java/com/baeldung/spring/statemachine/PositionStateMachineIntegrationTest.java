@@ -67,6 +67,24 @@ public class PositionStateMachineIntegrationTest {
     }
 
     @Test
+    public void whenDayTradeOffset_thenOpenPositionClosesSameSession() {
+        stateMachine.sendEvent(PositionEvents.SUBMIT_OPEN);
+        stateMachine.sendEvent(PositionEvents.FILL_OPEN);
+        assertEquals(PositionStates.OPEN, stateMachine.getState().getId());
+
+        assertTrue(stateMachine.sendEvent(PositionEvents.DAY_TRADE_OFFSET));
+        assertEquals(PositionStates.CLOSED, stateMachine.getState().getId());
+    }
+
+    @Test
+    public void whenDayTradeOffsetBeforeOpen_thenTransitionIsRejected() {
+        assertEquals(PositionStates.FLAT, stateMachine.getState().getId());
+
+        assertFalse(stateMachine.sendEvent(PositionEvents.DAY_TRADE_OFFSET));
+        assertEquals(PositionStates.FLAT, stateMachine.getState().getId());
+    }
+
+    @Test
     public void whenInvalidEventForState_thenTransitionIsRejected() {
         assertEquals(PositionStates.FLAT, stateMachine.getState().getId());
 
