@@ -1,0 +1,9 @@
+# 你上傳的原始影片與抽出的畫格不進版控(檔案大且屬個人素材)
+source/*
+!source/.gitkeep
+frames/*
+!frames/.gitkeep
+report/contact-sheet-*.jpg
+report/cuts.txt
+report/00-metadata.txt
+report/shot-list.md
