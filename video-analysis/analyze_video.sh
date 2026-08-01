@@ -12,13 +12,15 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VIDEO="${1:?請指定影片路徑,例如 source/clip.mp4}"
 THRESHOLD="${2:-0.30}"
+# 第三個參數是輸出子目錄名。多支影片各自分開存,不會互相覆蓋。
+SLUG="${3:-$(basename "${VIDEO%.*}" | tr -c 'A-Za-z0-9_-' '_' | sed 's/_*$//')}"
 
 # 這台機器沒有系統 ffmpeg,改用 imageio-ffmpeg 附帶的執行檔。
 FFMPEG="$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())' 2>/dev/null || echo ffmpeg)"
 command -v "$FFMPEG" >/dev/null 2>&1 || [ -x "$FFMPEG" ] || { echo "找不到 ffmpeg"; exit 1; }
 
-FRAMES="$ROOT/frames"
-REPORT="$ROOT/report"
+FRAMES="$ROOT/frames/$SLUG"
+REPORT="$ROOT/report/$SLUG"
 rm -rf "$FRAMES"; mkdir -p "$FRAMES" "$REPORT"
 
 echo "▶ 1/5 讀取影片規格"

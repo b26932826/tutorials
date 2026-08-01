@@ -1,9 +1,17 @@
-# 你上傳的原始影片與抽出的畫格不進版控(檔案大且屬個人素材)
+# 你上傳的原始素材不進版控(檔案大且屬個人素材)
 source/*
 !source/.gitkeep
+
+# 抽出的畫格是二進位中間產物,可由素材重新產生
 frames/*
 !frames/.gitkeep
+
+# 自動處理的內部狀態
+.ingested
+.last-ingest-count
+
+# 分析輸出中的中間檔(shot-list.md 與 worksheet 會保留供審閱)
+report/**/contact-sheet-*.jpg
+report/**/cuts.txt
+report/**/00-metadata.txt
 report/contact-sheet-*.jpg
-report/cuts.txt
-report/00-metadata.txt
-report/shot-list.md
